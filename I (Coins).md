@@ -48,7 +48,53 @@ int main() {
 
 }
 ```
+# 1D Dp 
+- focus is j Heads only!
+```cpp
+#include <bits/stdc++.h>
+#include <iomanip>
+using namespace std;
+#define ll long long
 
+int main() {
+    int n; // ll is not needed for n <= 2999
+    cin >> n;
+    
+    vector<double> p(n);
+    for (int i = 0; i < n; i++) {
+        cin >> p[i];
+    }
+    
+    // Prob of getting exactly Heads 
+    
+    vector<double> dp(n+1 ,  0.0) ;
+    dp[0] = 1.0 ;
+    
+    
+    for (int i = 1 ; i <= n ; i++) {
+        double hp = p[i-1] ;
+        double tp = 1.0-p[i-1] ;
+        
+        for (int j = i ; j >= 0 ;j-- ) {
+            double prob_getting_head = 0.0 ;
+            if (j > 0) {
+                prob_getting_head = dp[j-1]*hp  ;
+            }
+            double prob_getting_tail = dp[j]*tp ;
+            dp[j] = prob_getting_head + prob_getting_tail ;
+        }
+    }
+    
+    double ans = 0.0 ;
+    int mn_heads = (n+1)/2 ;
+    for (int j = mn_heads ;  j <= n ; j++) {
+        ans += dp[j] ;
+    }
+    
+    cout << fixed << setprecision(10) << ans << endl ;
+
+}
+```
 # 🔍COMPLEXICITY ANALYSIS
 
 | 📊 METRIC | 📈 COMPLEXITY	  |  🧩 EXPLAINATION |
