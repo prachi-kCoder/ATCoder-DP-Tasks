@@ -49,3 +49,46 @@ int main() {
     }
 }
 ```
+# Tabulation Approach 
+```cpp
+#include <bits/stdc++.h>
+#include <iomanip>
+using namespace std;
+#define ll long long
+
+int main() {
+    ll n , k ; // ll is not needed for n <= 2999
+    cin >> n >> k ;
+    // TaroWin->1 , 0->Jiro
+    vector<bool> dp(k+1 , false) ;
+    
+    vector<ll> a(n) ;
+    
+    for (int i = 0; i < n ; i++ ) {
+        cin >> a[i] ;
+    }
+    sort(a.begin() , a.end()) ;
+    
+    
+    // print() ;
+    
+    for (int j = 1 ; j <= k ; j++ ) {
+        
+        for (int x : a) {
+            if (x > j) break ;
+            if (dp[j-x] == 0) { // prev player lose at j=sum
+                dp[j] = true ;
+                break ;
+            }
+        }
+    }
+    
+    ll ans = dp[k] ;// ie Starting from Taro can he win otherwise Jiro 
+    if (ans) {
+        cout << "First" <<endl ;
+    }else {
+        cout << "Second" <<endl ;
+        
+    }
+}
+```
