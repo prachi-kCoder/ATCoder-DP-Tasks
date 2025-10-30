@@ -9,32 +9,36 @@
 
 ```cpp
 #include <bits/stdc++.h>
-
 using namespace std;
-
-
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-	int n; cin>>n;
-	vector<int> a, b, c; 
-	for(int i = 0; i < n; i++){
-		int A, B, C; cin>>A>>B>>C;
-		a.push_back(A); 
-		b.push_back(B); 
-		c.push_back(C); 
-	}
-	vector<vector<int>> dp(n, vector<int>(3, 0)); 
-	dp[0][0] = a[0]; 
-	dp[0][1] = b[0]; 
-	dp[0][2] = c[0]; 
-	for(int i = 1; i < n; i++){
-		dp[i][0] = max(dp[i - 1][1], dp[i - 1][2]) + a[i]; 
-		dp[i][1] = max(dp[i - 1][0], dp[i - 1][2]) + b[i];
-		dp[i][2] = max(dp[i - 1][1], dp[i - 1][0]) + c[i]; 
-	}
-	int ans = max(max(dp[n - 1][0], dp[n - 1][1]), dp[n - 1][2]);
-	cout<<ans<<'\n'; 
+#define ll long long
+const ll N = (ll)(2e5 + 5) ;
+ll bit[N] ;
+void update(int i, ll val) {
+    for (; i < N; i += i & -i)
+        bit[i] = max(bit[i], val);
 }
-    
+
+ll query(int i) {
+    ll res = 0;
+    for (; i > 0; i -= i & -i)
+        res = max(res, bit[i]);
+    return res;
+}
+int main() {
+	int n;
+    cin >> n;
+    vector<int> h(n);
+    vector<ll> a(n);
+    for (int i = 0; i < n; i++) cin >> h[i];
+    for (int i = 0; i < n; i++) cin >> a[i];
+    ll ans = 0;
+    for (int i = 0; i < n; i++) {
+        ll best = query(h[i] - 1);
+        ll curr = best + a[i];
+        update(h[i], curr);
+        ans = max(ans, curr);
+    }
+    cout << ans << endl;
+
+}    
 ```
