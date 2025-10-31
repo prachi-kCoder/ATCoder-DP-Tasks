@@ -44,7 +44,7 @@ int main() {
 
 # 🔍COMPLEXICITY ANALYSIS
 
-| 📊 METRIC | 📈 COMPLEXITY	  |  🧩 EXPLAINATION |
+| 📊 METRIC | 📈 COMPLEXITY	  |  🧩 EXPLANATION |
 |-----------|-------------|------------|
 | 🧭 TIME  |   10000 X 2 X 2 X 100    |  10000 digits, tight, is_leading_z, dSum all are to be explored atleast ones         |
-| 🧠 SPACE |    10000 X 2 X 2 X 100      |     Dp table       |
+| 🧠 SPACE |    10000 X 2 X 2 X 100      |   DP table stores results for all combinations of the above states       |
